@@ -3,30 +3,31 @@ import { generatePositions } from '$lib/game';
 import { cardsOnBoard } from '$lib/data/mock';
 
 export function GET() {
+	const idPlayer = 1;
 	let board: Array<Game.Square> = generatePositions(0, 5);
 
 	board = board.map((square) => {
-		let foundCard: Game.CardInstance | undefined | false = cardsOnBoard.find(
-			(candidate) => candidate.x === square.x && candidate.y === square.y
-		);
-		if (foundCard && foundCard.owner === 2) {
-			foundCard = false;
+		const squareContent: Game.Square =
+			cardsOnBoard.find((candidate) => candidate.x === square.x && candidate.y === square.y) ??
+			square;
+
+		if (hasNoCard(squareContent)) {
+			return square;
+		}
+		if (isOwner(squareContent, idPlayer)) {
+			return { ...squareContent };
 		}
 
-		return { ...square, card: foundCard };
+		return { ...squareContent, card: null };
 	});
 
-	// board[0].card = {
-	// 	slug: 'cloboulon',
-	// 	name: 'Cloboulon',
-	// 	type: 'chief',
-	// 	corners: [4, 5, '*', 2],
-	// 	power:
-	// 		'Le combat se solde par une égalité. Si tu viens de déplacer Cloboulon, tu déplaces un Grognard.',
-	// 	value: 20,
-	// 	moves: [[[-1, 0]], [[-1, 1]], [[0, 1]], [[1, 1]], [[1, 0]], [[1, -1]], [[0, -1]], [[-1, -1]]]
-	// };
-	// board[1].card = false;
-
 	return json(board);
+}
+
+function hasNoCard(square: Game.Square): square is Game.SquareWithoutCard {
+	return square.card === undefined;
+}
+
+function isOwner(card: Game.CardInstance, idPlayer: number): card is Game.PlayerCard {
+	return card.owner === idPlayer;
 }

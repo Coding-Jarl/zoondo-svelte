@@ -1,13 +1,8 @@
-export function generatePositions(
-	minX: number,
-	maxX: number,
-	minY: number = minX,
-	maxY: number = maxX
-): Game.Position[] {
+export function generatePositions(min: number, max: number): Game.Position[] {
 	const positions: Array<Game.Position> = [];
 
-	for (let y = maxY; y >= minY; y--) {
-		for (let x = minX; x <= maxX; x++) {
+	for (let y = max; y >= min; y--) {
+		for (let x = min; x <= max; x++) {
 			positions.push({ x, y });
 		}
 	}
@@ -31,16 +26,10 @@ export function movesToTransitions(
 	moves: Game.Move[][],
 	nbSquares: number
 ): Array<Game.Transition> {
-	const movesCopy = JSON.parse(JSON.stringify(moves)) as typeof moves;
+	const transitions: Array<Game.Transition> = [];
 
-	const fullMoves = movesCopy.map((moveSerie) => {
-		moveSerie.unshift([0, 0]);
-		return moveSerie;
-	});
-
-	const transitions = [];
-	for (let i = 0; i < fullMoves.length; i += 1) {
-		const moveSerie = movesCopy[i];
+	for (const move of moves) {
+		const moveSerie = [[0, 0], ...move];
 
 		for (let j = 0; j < moveSerie.length - 1; j += 1) {
 			const curMove = moveSerie[j];

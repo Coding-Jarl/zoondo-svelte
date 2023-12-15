@@ -12,7 +12,7 @@ declare global {
 			value: number;
 			moves: Array<Array<Move>>;
 			power?: string;
-			resolver?: function;
+			resolver?: () => void;
 		};
 
 		type Position = {
@@ -20,15 +20,25 @@ declare global {
 			y: number;
 		};
 
-		type Square = Position & {
-			card?: Card | false;
-		};
-
-		type Board = Array<Square>;
-
-		type CardInstance = Card & {
+		type OpponentCard = {
+			card: null;
 			owner: number;
 		};
+		type PlayerCard = {
+			card: Card;
+			owner: number;
+		};
+		type NoCard = {
+			card?: undefined;
+		};
+		type CardInstance = OpponentCard | PlayerCard;
+
+		type SquareWithoutCard = Position & NoCard;
+		type SquareWithCard = Position & CardInstance;
+
+		type Square = SquareWithoutCard | SquareWithCard;
+
+		type Board = Array<Square>;
 
 		type Transition = [Position, Position];
 	}

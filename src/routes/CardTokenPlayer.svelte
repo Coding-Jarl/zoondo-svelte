@@ -9,7 +9,7 @@
 </script>
 
 <img
-	src="/assets/card-back-board-alt.png"
+	src="/assets/card-back-board-alt.webp"
 	alt="{card.name} Card owned by you"
 	on:mouseenter={setCurrentFocus}
 />

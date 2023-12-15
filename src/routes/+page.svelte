@@ -5,6 +5,10 @@
 	export let data;
 </script>
 
+<svelte:head>
+    <title>Zoondo : Board</title> 
+</svelte:head>
+
 <main>
 	<div class="Board">
 		<Board board={data.board} />
@@ -13,7 +17,7 @@
 		<CardSample />
 	</div>
 	<div class="Chat">
-		<Chat />
+		<Chat messages={data.messages} />
 	</div>
 </main>
 

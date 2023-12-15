@@ -1,8 +1,11 @@
 export async function load({ fetch }) {
-	const response = await fetch('/api/boards');
-	const board: Game.Board = await response.json();
+	const [board, messages] = await Promise.all([
+		fetch('/api/boards').then<Game.Board>((r) => r.json()),
+		fetch('/api/chat').then<Chat.Message[]>((r) => r.json())
+	]);
 
 	return {
-		board
+		board,
+		messages
 	};
 }
