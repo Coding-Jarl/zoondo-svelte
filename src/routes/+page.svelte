@@ -1,25 +1,13 @@
 <script lang="ts">
-	import { io } from 'socket.io-client';
-	import Board from './Board.svelte';
-	import CardSample from './CardSample.svelte';
-	import Chat from './Chat.svelte';
-	import { addToast } from '$lib/stores/toast';
+	import Board from './(components)/game/Board.svelte';
+	import CardSample from './(components)/game/CardSample.svelte';
+	import Chat from './(components)/layout/Chat.svelte';
+	import { subscribeSocket } from '$lib/methods/subscribeSocket';
 
 	export let data;
-	let messages: Array<Chat.Message> = [];
 	let currMsg = '';
 
-	const socket = io();
-
-	socket.on('serverNotice', (msg) => {
-		addToast({ msg, type:"notice" })
-	});
-	socket.on('lastMessages', (msg) => {
-		messages = msg;
-	});
-	socket.on('newMessage', (msg) => {
-		messages = [...messages, msg];
-	});
+	const { socket, messages } = subscribeSocket([]);
 
 	const hClickSend = () => {
 		socket.emit('message', currMsg);
@@ -39,8 +27,8 @@
 		<CardSample />
 	</div>
 	<div class="Chat">
-		<Chat {messages} />
-		<form on:submit={hClickSend}>
+		<Chat messages={$messages} />
+		<form on:submit|preventDefault={hClickSend}>
 			<label>
 				<span class="sr-only">Message:</span>
 				<input type="text" bind:value={currMsg} />

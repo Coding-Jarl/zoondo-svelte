@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {currentToasts} from "../lib/stores/toast"
+	import {currentToasts} from "$lib/stores/toast"
 </script>
 
 <ul>

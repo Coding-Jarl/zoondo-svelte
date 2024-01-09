@@ -7,12 +7,12 @@
 
 	function hDragDrop(evt: DragEvent & { currentTarget: HTMLElement }) {
 		if (!evt.dataTransfer) return;
-
-		evt.preventDefault();
+		
 		const cardId = evt.dataTransfer.getData('cardId');
+
 		const coords = `${evt.currentTarget.dataset.x};${evt.currentTarget.dataset.y}`;
 
-		addToast({msg: `Dropped ${cardId} into ${coords}`,type:"notice"})
+		addToast({ msg: `Dropped ${cardId} into ${coords}`, type: 'notice' });
 	}
 </script>
 
@@ -20,23 +20,26 @@
 	{#each board as square, id}
 		<div
 			class="square"
-			on:drop={hDragDrop}
+			on:drop|preventDefault={hDragDrop}
 			on:dragover|preventDefault
 			data-x={square.x}
 			data-y={square.y}
 			aria-dropeffect="move"
+			role="gridcell"
+			tabindex="0"
 		>
 			{#if square.card === null}
 				<CardTokenOpponent />
 			{:else if square.card}
 				<CardTokenPlayer card={square.card} id={`card-${id}`} />
 			{/if}
+			<span>{square.x}-{square.y}</span>
 		</div>
 	{/each}
 </div>
 
 <style lang="scss">
-	@use '../styles/abstracts/variables.module' as *;
+	@use '$styles/abstracts/variables.module' as *;
 
 	.wrapper {
 		display: flex;
@@ -54,5 +57,15 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
+		position: relative;
+
+		span {
+			position: absolute;
+			inset: 0;
+			display: grid;
+			place-items: center;
+			pointer-events: none;
+		}
 	}
 </style>

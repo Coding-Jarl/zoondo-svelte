@@ -1,9 +1,9 @@
 <script lang="ts">
-	import '../styles/core/reset.scss';
-	import '../styles/core/base.scss';
+	import '$styles/core/reset.scss';
+	import '$styles/core/base.scss';
 
-	import Hotlinks from './Hotlinks.svelte';
-	import Toasts from './Toasts.svelte';
+	import Hotlinks from './(components)/layout/Hotlinks.svelte';
+	import Toasts from './(components)/layout/Toasts.svelte';
 </script>
 
 <div class="wrapper">

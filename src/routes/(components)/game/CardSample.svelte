@@ -12,13 +12,11 @@
 		<div class="corner cor-bl">{$currentFocus.corners[3]}</div>
 		<div class="moves">
 			{#each squares as square}
-				{@const origin = square.x === 0 && square.y === 0 ? 'origin' : ''}
-				{@const move = $currentFocus.moves
-					.flat()
-					.every(([x, y]) => x !== square.x || y !== square.y)
-					? ''
-					: 'move'}
-				<div class={`square ${origin} ${move}`} />
+				<div
+					class="square"
+					class:origin={square.x === 0 && square.y === 0}
+					class:move={$currentFocus.moves.flat().some(([x, y]) => x === square.x && y === square.y)}
+				/>
 				<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
 					{#each movesToTransitions($currentFocus.moves, squares.length) as [src, dst]}
 						<line
