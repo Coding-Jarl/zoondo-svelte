@@ -1,24 +1,26 @@
 <script lang="ts">
-	import { currentFocus } from '$lib/stores/game';
+	import { game } from '$lib/stores/game';
 	import { generatePositions, movesToTransitions } from '$lib/game';
 	let squares = generatePositions(-2, 2);
+
+	$: currentFocus = $game.focus;
 </script>
 
 <div class="card">
-	{#if $currentFocus}
-		<div class="corner cor-tl">{$currentFocus.corners[0]}</div>
-		<div class="corner cor-tr">{$currentFocus.corners[1]}</div>
-		<div class="corner cor-br">{$currentFocus.corners[2]}</div>
-		<div class="corner cor-bl">{$currentFocus.corners[3]}</div>
+	{#if currentFocus}
+		<div class="corner cor-tl">{currentFocus.corners[0]}</div>
+		<div class="corner cor-tr">{currentFocus.corners[1]}</div>
+		<div class="corner cor-br">{currentFocus.corners[2]}</div>
+		<div class="corner cor-bl">{currentFocus.corners[3]}</div>
 		<div class="moves">
 			{#each squares as square}
 				<div
 					class="square"
 					class:origin={square.x === 0 && square.y === 0}
-					class:move={$currentFocus.moves.flat().some(([x, y]) => x === square.x && y === square.y)}
+					class:move={currentFocus.moves.flat().some(([x, y]) => x === square.x && y === square.y)}
 				/>
 				<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-					{#each movesToTransitions($currentFocus.moves, squares.length) as [src, dst]}
+					{#each movesToTransitions(currentFocus.moves, squares.length) as [src, dst]}
 						<line
 							x1={src.x + 50}
 							y1={src.y + 50}
@@ -31,16 +33,16 @@
 				</svg>
 			{/each}
 		</div>
-		<img src={`/assets/types/${$currentFocus.type}.webp`} alt={$currentFocus.type} class="type" />
-		<div class="value">{$currentFocus.value}</div>
+		<img src={`/assets/types/${currentFocus.type}.webp`} alt={currentFocus.type} class="type" />
+		<div class="value">{currentFocus.value}</div>
 		<img
-			src={`/assets/tribes/${$currentFocus.slug}.webp`}
-			alt={$currentFocus.slug}
+			src={`/assets/tribes/${currentFocus.slug}.webp`}
+			alt={currentFocus.slug}
 			class="picture"
 		/>
-		<div class="name">{$currentFocus.name}</div>
-		{#if $currentFocus.power}
-			<div class="power">{`Special: ${$currentFocus.power}`}</div>
+		<div class="name">{currentFocus.name}</div>
+		{#if currentFocus.power}
+			<div class="power">{`Special: ${currentFocus.power}`}</div>
 		{/if}
 	{/if}
 </div>

@@ -80,8 +80,8 @@ export function generateBoard(rawData: DB.GameExtended) {
 				owner: null
 			};
 		else {
-			const cardData = availableCards[card.card_id];
-			delete cardData.resolver;
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			const { resolver, ...cardData } = availableCards[card.card_id];
 
 			squareContent = {
 				card: cardData,

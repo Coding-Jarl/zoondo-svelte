@@ -27,7 +27,7 @@
 <div class="wrapper">
 	<ul bind:this={ul}>
 		{#each $messages as msg}
-			<li class={msg.user_id === userId ? 'me' : 'him'}>{msg.content}</li>
+			<li class={msg.author_id === userId ? 'me' : 'him'}>{msg.content}</li>
 		{/each}
 	</ul>
 	<form on:submit|preventDefault={hClickSend}>

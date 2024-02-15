@@ -1,6 +1,6 @@
 <nav>
 	<a href="/" class="Logo">Next Template</a>
-	<a href="/games/97a946aa-4a7d-4cef-8b70-da3d6fc70301">Current (only) game</a>
+	<a href="/games/ee6abfea-6814-4d0d-9b07-ea5bccfcd089">Current (only) game</a>
 	<a href="/">Link #2</a>
 	<a href="/">Link #3</a>
 </nav>

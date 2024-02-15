@@ -1,25 +1,23 @@
 <script lang="ts">
-	import { currentFocus } from '$lib/stores/game';
+	import { dragStart } from '$lib/methods/dragAndDrop';
+	import { game } from '$lib/stores/game';
 
-	export let card: Game.PlayerCard;
-	export let id: string;
+	export let cardInstance: Game.PlayerCard;
 
 	function setCurrentFocus() {
-		currentFocus.set(card.card);
+		game.setFocus(cardInstance.card);
 	}
 
 	function hDragStart(evt: DragEvent) {
-		if (!evt.dataTransfer) return;
-
-		evt.dataTransfer.dropEffect = 'move';
-		evt.dataTransfer.setData('cardId', id);
-		evt.dataTransfer.setData('card', JSON.stringify(card));
+		dragStart(evt, {
+			cardInstance,
+		})
 	}
 </script>
 
 <img
 	src="/assets/card-back-board-alt.webp"
-	alt="{card.card.name} Card owned by you"
+	alt="{cardInstance.card.name} Card owned by you"
 	draggable="true"
 	on:mouseenter={setCurrentFocus}
 	on:dragstart={hDragStart}

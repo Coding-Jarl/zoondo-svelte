@@ -3,9 +3,10 @@ import type { Socket } from 'socket.io-client';
 import { io } from 'socket.io-client';
 import { writable } from 'svelte/store';
 
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
+
 export function subscribeSocket(room = 'waiting') {
 	const messages = writable<Array<DB.Message>>([]);
-	const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
 
 	socket.emit('joinRoom', room);
 
