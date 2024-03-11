@@ -7,6 +7,7 @@
   export let data;
   $: ({
     user: { userId },
+    board,
     isFirstPlayer
   } = data);
 </script>
@@ -16,23 +17,15 @@
 </svelte:head>
 
 <main>
-  {#await data.board}
-    <p>Loading...</p>
-  {:then board}
-    {#if board}
-      <div class="Board">
-        <Board {board} {userId} room="game#{$page.params.id}" {isFirstPlayer} />
-      </div>
-      <div class="CardSample">
-        <CardSample />
-      </div>
-    {/if}
-    <div class="Chat">
-      <Chat room="game#{$page.params.id}" {userId} />
-    </div>
-  {:catch err}
-    <p>Error: {err.message}</p>
-  {/await}
+  <div class="Board">
+    <Board {board} {userId} room="game#{$page.params.id}" {isFirstPlayer} />
+  </div>
+  <div class="CardSample">
+    <CardSample />
+  </div>
+  <div class="Chat">
+    <Chat room="game#{$page.params.id}" {userId} />
+  </div>
 </main>
 
 <style lang="scss">

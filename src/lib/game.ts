@@ -54,7 +54,7 @@ export function movesToTransitions(
   return transitions;
 }
 
-export function generateBoard(rawData: DB.GameExtended) {
+export function generateBoard(rawData: DB.GameWithActions) {
   const { cards, actions } = rawData;
   const positions = generatePositions(0, 5);
   const board: Game.Square[] = [];

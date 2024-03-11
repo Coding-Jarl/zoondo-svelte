@@ -83,9 +83,9 @@
           <CardTokenOpponent />
         {/if}
       {/if}
-      <span class="pointer-events-none absolute inset-0 grid place-items-center"
-        >{square.x}-{square.y}</span
-      >
+      <span class="pointer-events-none absolute inset-0 grid place-items-center">
+        {square.x}-{square.y}
+      </span>
     </div>
   {/each}
 </div>

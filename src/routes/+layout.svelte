@@ -1,6 +1,5 @@
 <script lang="ts">
   import '$styles/core/reset.scss';
-  import '$styles/core/base.scss';
   import '../app.css';
 
   import Hotlinks from './(components)/Hotlinks.svelte';
@@ -17,6 +16,7 @@
 
 <style lang="postcss">
   :global(html) {
-    background-color: theme(colors.gray.100);
+    background-color: theme(colors.slate.950);
+    color: theme(colors.slate.50);
   }
 </style>

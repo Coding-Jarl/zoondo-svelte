@@ -22,6 +22,13 @@ declare global {
         player2: true;
       };
     }>;
+
+    type GameWithActions = Prisma.GameGetPayload<{
+      include: {
+        actions: true;
+        cards: true;
+      };
+    }>;
   }
 }
 export {};
