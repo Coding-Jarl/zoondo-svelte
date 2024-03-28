@@ -1,6 +1,6 @@
 <script lang="ts">
   import { currentFocus } from '$lib/stores/game';
-  import { generatePositions, movesToTransitions } from '$lib/game';
+  import { generatePositions, movesToTransitions } from '$lib/methods';
   let squares = generatePositions(-2, 2);
 
   $: cardFocused = $currentFocus?.card;

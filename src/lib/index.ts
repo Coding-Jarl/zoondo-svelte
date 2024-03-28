@@ -1,1 +1,3 @@
-// place files you want to import through the `$lib` alias in this folder.
+export * as db from './data/db';
+export * as methods from './methods';
+export * as helpers from './methods';

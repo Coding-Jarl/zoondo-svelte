@@ -1,44 +1,37 @@
-import { PrismaClient } from '@prisma/client';
 import crypto from 'crypto';
-const prisma = new PrismaClient();
+import { dbClient } from '../src/lib/server/prisma';
+import db from '../src/lib/data/db';
+
+const users = [
+  {
+    email: 'evoli@spamland.com',
+    username: 'Evoli'
+  },
+  {
+    email: 'aquali@spamland.com',
+    username: 'Aquali'
+  },
+  {
+    email: 'pyroli@spamland.com',
+    username: 'Pyroli'
+  }
+];
 
 async function main() {
-  // TODO Fill this ?
-  await prisma.user.upsert({
-    where: { email: 'evoli@spamland.com' },
-    update: {},
-    create: {
+  for (const user of users) {
+    await db.users.createIfNotExists({
       id: crypto.randomUUID(), //SQLite
-      email: 'evoli@spamland.com',
-      username: 'Evoli'
-    }
-  });
-  await prisma.user.upsert({
-    where: { email: 'aquali@spamland.com' },
-    update: {},
-    create: {
-      id: crypto.randomUUID(), //SQLite
-      email: 'aquali@spamland.com',
-      username: 'Aquali'
-    }
-  });
-  await prisma.user.upsert({
-    where: { email: 'pyroli@spamland.com' },
-    update: {},
-    create: {
-      id: crypto.randomUUID(), //SQLite
-      email: 'pyroli@spamland.com',
-      username: 'Pyroli'
-    }
-  });
+      ...user
+    });
+  }
 }
 
 main()
   .then(async () => {
-    await prisma.$disconnect();
+    await dbClient.$disconnect();
   })
   .catch(async (e) => {
     console.error(e);
-    await prisma.$disconnect();
+    await dbClient.$disconnect();
     process.exit(1);
   });

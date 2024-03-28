@@ -1,20 +1,19 @@
 import db from '$lib/data/db';
-import { generateBoard } from '$lib/game.js';
-import { fail } from '@sveltejs/kit';
+import { generateBoard } from '$lib/methods';
+import { error } from '@sveltejs/kit';
 
 export const load = async ({ params, parent, locals }) => {
   await parent();
-  const rawData = await db.games.getExtended(params.id);
-  if (!rawData) return fail(404);
 
+  const rawData = await db.games.get(params.id, { actions: true, cards: true });
+  if (!rawData) error(404, "Game doesn't exist");
+
+  const isFirstPlayer = locals.user.userId === rawData.player1_id;
   let board: Game.Square[] = generateBoard(rawData);
-  if (locals.user.userId === rawData.player1_id) {
+  if (isFirstPlayer) {
     board = board.reverse();
   }
   // TODO obfuscation selon le user
 
-  return {
-    board,
-    isFirstPlayer: locals.user.userId === rawData.player1_id
-  };
+  return { board, isFirstPlayer };
 };

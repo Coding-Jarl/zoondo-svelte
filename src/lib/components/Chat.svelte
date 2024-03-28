@@ -3,8 +3,8 @@
   import { subscribeSocket } from '$lib/methods/subscribeSocket';
   import { afterUpdate } from 'svelte';
 
-  export let room = 'waiting';
-  export let userId: string;
+  export let room: Room = 'waiting';
+  export let userId: DB.User['id'];
 
   const { socket, messages } = subscribeSocket(room);
 
@@ -43,7 +43,7 @@
   </ul>
   <form on:submit|preventDefault={hClickSend}>
     <label>
-      <span class="sr-only">Message:</span>
+      <span class="sr-only">Message</span>
       <input type="text" bind:value={currMsg} />
     </label>
     <button>Send a message!</button>
