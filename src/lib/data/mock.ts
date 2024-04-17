@@ -2,6 +2,7 @@ export const availableCards: Record<string, Game.Card> = {
   cloboulon: {
     slug: 'cloboulon',
     name: 'Cloboulon',
+    image: 'cloboulon.webp',
     type: 'chief',
     corners: [4, 5, '*', 2],
     power:
@@ -17,6 +18,7 @@ export const availableCards: Record<string, Game.Card> = {
   'gold-hure': {
     slug: 'gold-hure',
     name: 'Gold-Hure',
+    image: 'gold-hure.webp',
     type: 'hero',
     corners: [4, 4, 2, '*'],
     power:
@@ -54,6 +56,7 @@ export const availableCards: Record<string, Game.Card> = {
   bouclefeuille: {
     slug: 'bouclefeuille',
     name: 'Bouclefeuille',
+    image: 'bouclefeuille.webp',
     type: 'priest',
     corners: [2, 0, 0, '*'],
     resolver: () => {
@@ -70,8 +73,9 @@ export const availableCards: Record<string, Game.Card> = {
     moves: [[[-1, 0]], [[1, 0]]]
   },
   'grognard:0': {
-    slug: 'grognard',
+    slug: 'grognard:0',
     name: 'Grognard',
+    image: 'grognard.webp',
     type: 'elite',
     corners: [3, 4, 2, 1],
     value: 16,
@@ -90,8 +94,9 @@ export const availableCards: Record<string, Game.Card> = {
     ]
   },
   'grognard:1': {
-    slug: 'grognard',
+    slug: 'grognard:1',
     name: 'Grognard',
+    image: 'grognard.webp',
     type: 'elite',
     corners: [4, 3, 1, 2],
     value: 16,
@@ -112,6 +117,7 @@ export const availableCards: Record<string, Game.Card> = {
   'kassin:0': {
     slug: 'kassin:0',
     name: 'Kassin',
+    image: 'kassin.webp',
     type: 'soldier',
     corners: [1, 2, 0, 0],
     value: 7,
@@ -120,6 +126,7 @@ export const availableCards: Record<string, Game.Card> = {
   'kassin:1': {
     slug: 'kassin:1',
     name: 'Kassin',
+    image: 'kassin.webp',
     type: 'soldier',
     corners: [2, 1, 0, 0],
     value: 7,
@@ -128,12 +135,13 @@ export const availableCards: Record<string, Game.Card> = {
   sacrechene: {
     slug: 'sacrechene',
     name: 'Sacrechêne',
+    image: 'sacrechene.webp',
     type: 'emblem',
     corners: [4, 2, 0, 0],
     value: 12,
     moves: []
   }
-};
+} as const;
 
 export const cardsOnBoard = [
   { card: availableCards['gold-hure'], x: 1, y: 1, owner: 1 },

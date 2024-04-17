@@ -3,19 +3,20 @@ import { Server } from 'socket.io';
 import { broadcastMsg } from './broadcastMsg';
 import { playAction } from './playAction';
 import db from '../../../lib/data/db';
-import { generateBoard } from '../../methods/game';
 import { isRoomGame } from '../../../lib/methods/isType';
 import { arrayOfKeysToObject } from '../../../lib/methods/array';
+import { Board } from '../../../lib/extends/Board';
 
 async function getBoard(room: RoomGame) {
-  let board: Game.Square[] = [];
+  const board = new Board();
   const [, gameId] = room.split('#');
   const keys = arrayOfKeysToObject(['actions', 'cards', 'player1', 'player2'], true);
   const gameData = await db.games.get(gameId, keys);
-  // console.log(gameData); //! L'id du joueur 2 semble être celui du socket io !
-  if (gameData) board = generateBoard(gameData);
+  if (gameData) {
+    await board.generate(gameData.cards, gameData.actions);
+  }
 
-  return board;
+  return Array.from(board.values());
 }
 export default {
   name: 'webSocketServer',

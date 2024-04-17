@@ -10,8 +10,19 @@ declare global {
     type Game = Prisma.GameGetPayload<object>;
     type GameInclude = Prisma.GameInclude;
     type GameIncludeKeys = keyof Prisma.GameInclude;
-    type GameExtendedByKeys<T extends GameIncludeKeys[]> = Prisma.GameGetPayload<{
-      include: ArrayToObject<T, true>;
+    /**
+     * Retrieve a game with the specified relations included. The relations to include are specified as an array of strings,
+     * each of which must be a valid key in the {@link GameInclude} interface.
+     *
+     * @template T The type of the include object. Must be an object where each key is a valid {@link GameIncludeKeys} and the value is `true`.
+     * @param includes The relations to include in the query.
+     * @returns A game, including the specified relations.
+     */
+    type GameExtendedByKeys<
+      T extends GameIncludeKeys[],
+      U = ArrayToObject<T, true>
+    > = Prisma.GameGetPayload<{
+      include: U;
     }>;
     type GameExtended<T extends GameInclude> = Prisma.GameGetPayload<{
       include: T;

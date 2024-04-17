@@ -7,6 +7,7 @@ declare global {
     type Card = {
       slug: string;
       name: string;
+      image: string;
       type: Type;
       corners: [NW: Corner, NE: Corner, SE: Corner, SW: Corner];
       value: number;

@@ -19,23 +19,23 @@
           class:origin={square.x === 0 && square.y === 0}
           class:move={cardFocused.moves.flat().some(([x, y]) => x === square.x && y === square.y)}
         />
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          {#each movesToTransitions(cardFocused.moves, squares.length) as [src, dst]}
-            <line
-              x1={src.x + 50}
-              y1={src.y + 50}
-              x2={dst.x + 50}
-              y2={dst.y + 50}
-              stroke="black"
-              stroke-width="2"
-            />
-          {/each}
-        </svg>
       {/each}
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        {#each movesToTransitions(cardFocused.moves, squares.length) as [src, dst]}
+          <line
+            x1={src.x + 50}
+            y1={src.y + 51}
+            x2={dst.x + 50}
+            y2={dst.y + 51}
+            stroke="black"
+            stroke-width="2"
+          />
+        {/each}
+      </svg>
     </div>
     <img src={`/assets/types/${cardFocused.type}.webp`} alt={cardFocused.type} class="type" />
     <div class="value">{cardFocused.value}</div>
-    <img src={`/assets/tribes/${cardFocused.slug}.webp`} alt={cardFocused.slug} class="picture" />
+    <img src={`/assets/tribes/${cardFocused.image}`} alt={cardFocused.slug} class="picture" />
     <div class="name">{cardFocused.name}</div>
     {#if cardFocused.power}
       <div class="power">{`Special: ${cardFocused.power}`}</div>
